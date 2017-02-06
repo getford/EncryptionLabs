@@ -59,7 +59,6 @@ namespace lab2
             }
 
             mergeArrs();
-            chooseSymbols();
             minInArrTmp();
             showArr();
         }
@@ -77,11 +76,6 @@ namespace lab2
                 tio[0, i] = symbol;
                 tio[1, i] = number;
             }
-        }
-
-        private void chooseSymbols()            // выбираем символы встречающиеся реже других
-        {
-
         }
 
         private void showArr()              //выводим результат пользователю
@@ -126,25 +120,87 @@ namespace lab2
             richTextBox_resArr.Text = res;
         }
 
-        private void minInArrTmp()              // минимальный элемент массива
+        private void minInArrTmp() // минимальный элемент массива
         {
-            string min = tio[1, 0];
-            int minIndex = 0;
-            int[] minIndexArr = new int[alf.Length];
+            string s = string.Empty; // буквы
+            string s1 = string.Empty; // числа
 
-            for (int i = 0; i < alf.Length; i++)
+            string tmp = string.Empty;
+
+            int i = 0;
+            for (int j = 0; j < alf.Length; j++)
             {
-                if (Convert.ToInt32(tio[1, i]) < Convert.ToInt32(min))
+                if (i == 0)
                 {
-                    min = Convert.ToInt32(tio[1, i]).ToString();
-                    minIndex = i;
+                    s += (tio[i, j]);
+                    i++;
+                }
+                if (i == 1)
+                {
+                    s1 += (tio[i, j]) + "\t";
+                    i--;
                 }
             }
+
+            int h = 0;
+            string min = "1000";
+            string index = string.Empty;
+            for (int k = 0; k < s.Length; k++)
+            {
+                while (s1[h].ToString() != "\t")
+                {
+                    tmp += s1[h];
+                    h++;
+                    if (s1[h].ToString() == "\t")
+                    {
+                        if (Convert.ToInt32(tmp) < Convert.ToInt32(min))
+                            min = tmp;
+                        index = h.ToString();
+                        tmp = string.Empty;
+                    }
+                }
+                h++;
+            }
+        }
+
+        /*string min = tio[1, 0];
+                            int minIndex = 0;
+                            int[] minIndexArr = new int[alf.Length];
+
+                            for (int i = 0; i < alf.Length; i++)
+                            {
+                                if (i != minIndexArr[i])
+                                {
+                                    if (Convert.ToInt32(tio[1, i]) < Convert.ToInt32(min))
+                                    {
+                                        min = Convert.ToInt32(tio[1, i]).ToString();
+                                        minIndex = i;
+                                    }
+                                }
+                                else
+                                    continue;
+                            }
+                            minIndexArr[0] = minIndex;
+                    */
+
+        private void timeToChoose()             // выбираем редко встречающиеся буквы
+        {
+
+        }
+
+        private void genPassword()          // генерируем пароль
+        {
+
         }
 
         private void button_check_Click(object sender, EventArgs e)
         {
             checkInText();
+        }
+
+        private void button_genPassword_Click(object sender, EventArgs e)
+        {
+            genPassword();
         }
     }
 }
