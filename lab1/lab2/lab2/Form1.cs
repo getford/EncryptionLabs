@@ -23,7 +23,6 @@ namespace lab2
 
         //  private int min;                // символ встречающийся реже других
 
-
         public Form1()
         {
             InitializeComponent();
@@ -62,6 +61,7 @@ namespace lab2
             mergeArrs();
             chooseSymbols();
             minInArrTmp();
+            showArr();
         }
 
         private void mergeArrs() // объединим два массива в двумерный
@@ -82,18 +82,48 @@ namespace lab2
         private void chooseSymbols()            // выбираем символы встречающиеся реже других
         {
 
+        }
 
-            /*
-            string min = "0";         // минимальное значение
+        private void showArr()              //выводим результат пользователю
+        {
+            string s = string.Empty;        // буквы
+            string s1 = string.Empty;       // числа
 
+            string res = string.Empty;
 
-            for (int i = 0; i < alf.Length; i++)
+            int i = 0;
+            for (int j = 0; j < alf.Length; j++)
             {
-                for (int j = 0; j < 2; j++)
+                if (i == 0)
                 {
-
+                    s += (tio[i, j]);
+                    i++;
                 }
-            }*/
+                if (i == 1)
+                {
+                    s1 += (tio[i, j]) + "\t";
+                    i--;
+                }
+            }
+
+            int h = 0;
+            string tmp = string.Empty;
+
+            for (int k = 0; k < s.Length; k++)
+            {
+                while (s1[h].ToString() != "\t")
+                {
+                    tmp += s1[h];
+                    h++;
+                    if (s1[h].ToString() == "\t")
+                    {
+                        res += s[k] + "\t" + tmp + Environment.NewLine;
+                        tmp = string.Empty;
+                    }
+                }
+                h++;
+            }
+            richTextBox_resArr.Text = res;
         }
 
         private void minInArrTmp()              // минимальный элемент массива
