@@ -1,21 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ce
 {
     public partial class ce : Form
     {
-        string alf_encrypt = "abcdefghijklmnopqrstuvwxyz"; // нормальный алвафит
+        private int sdvig = 0; // на сколько символов сдвигать
 
-        //string alf_encrypt = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz !@#$%^&*()_+-=[]{}:;,./|\\"; // нормальный алвафит
-        private string alf_decode = string.Empty; // шифр
+        string alf_encrypt = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ";
+        // string alf_encrypt = "АБВГДЕЁЖЗИЙКЛЬНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя. ";
+        // string alf_encrypt = "АБВГДЕЁЖЗІЙКЛЬНОПРСТУФХЦЧШЫЬЭЮЯабвгдеёжзійклмнопрстуўфхцчшыьэюя";
+        // string alf_encrypt = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz !@#$%^&*()_+-=[]{}:;,./|\\";
+
+        private string alf_decode = string.Empty;
 
         public ce()
         {
@@ -24,7 +22,16 @@ namespace ce
 
         private void ce_Load(object sender, EventArgs e)
         {
-            trackBar_sdvigAlpf.Maximum = alf_encrypt.Length;
+            if (alf_encrypt.Length > 0)
+            {
+                label_status.Text = $"Максимальное число для генерации: {alf_encrypt.Length - 1}";
+                label_error.Text = string.Empty;
+                label_count_symbols.Text = string.Empty;
+            }
+            else
+                MessageBox.Show("Алфавит не задан! Ошибка приложения!", "Error");
+            //    trackBar_sdvigAlpf.Maximum = alf_encrypt.Length;
+            //  trackBar_sdvigAlpf.Value = 4;
         }
 
         private void button_decode_Click(object sender, EventArgs e)
@@ -37,15 +44,19 @@ namespace ce
             enc();
         }
 
-        private void enc()
+        private void button_gen_alfpf_Click(object sender, EventArgs e)
+        {
+            genAlpf();
+        }
+
+        private void enc() // шифрование
         {
             string text_input = string.Empty;
             text_input = richTextBox_input.Text.ToString();
 
             string res = string.Empty; // строка декод
-            int error = 0;              // число нераспознанных символов
+            int error = 0; // число нераспознанных символов
 
-            // ReSharper disable once EmptyForStatement
             for (int i = 0; i < text_input.Length; i++)
             {
                 string tmp = text_input[i].ToString();
@@ -57,29 +68,24 @@ namespace ce
                         res += alf_decode[j];
                         continue;
                     }
-                    /*if(tmp != alf_encrypt[j].ToString())
-                    {
-                        error++;
-                        continue;
-                    }*/
                 }
             }
             error = text_input.Length - res.Length;
 
             label_error.ForeColor = Color.Red;
             label_error.Text = $"Число нераспознанных символов: {error.ToString()}";
+            label_count_symbols.Text = $"Размер введенного текста: {richTextBox_input.Text.Length}";
             richTextBox_output.Text = res;
         }
 
-        private void decode()
+        private void decode() // дешифрование
         {
             string text_input = string.Empty;
             text_input = richTextBox_input.Text.ToString();
 
             string res = string.Empty; // строка декод
+            int error = 0; // число нераспознанных символов
 
-
-            // ReSharper disable once EmptyForStatement
             for (int i = 0; i < text_input.Length; i++)
             {
                 string tmp = text_input[i].ToString();
@@ -94,44 +100,54 @@ namespace ce
                 }
             }
             richTextBox_output.Text = res;
+
+            error = text_input.Length - res.Length;
+
+            label_error.ForeColor = Color.Red;
+            label_error.Text = $"Число нераспознанных символов: {error.ToString()}";
+            richTextBox_output.Text = res;
         }
 
-        private void genAlpf()
+        private void genAlpf() // генерация алфавита
         {
             string nachaloCode = string.Empty;
             string endCode = string.Empty;
 
-            textBox_number_sdvig.Text = trackBar_sdvigAlpf.Value.ToString();
-            for (int i = 0; i <= trackBar_sdvigAlpf.Value; i++)
+            //textBox_number_sdvig.Text = trackBar_sdvigAlpf.Value.ToString();
+            sdvig = Convert.ToInt32(textBox_number_sdvig.Text);
+            if (sdvig <= alf_encrypt.Length)
             {
-                if (i < trackBar_sdvigAlpf.Value)
-                    nachaloCode += alf_encrypt[i];
-                //if (i == trackBar_sdvigAlpf.Value)
-                else
+                for (int i = 0; i <= sdvig; i++)
                 {
-                    for (int j = i; j < alf_encrypt.Length; j++)
-                    {
-                        endCode += alf_encrypt[j];
-                    }
+                    if (i < sdvig)
+                        nachaloCode += alf_encrypt[i];
+                    else
+                        for (int j = i; j < alf_encrypt.Length; j++)
+                            endCode += alf_encrypt[j];
                 }
+                alf_decode = endCode + nachaloCode;
+
+                label_status.Text = $"Используется сдвиг на {sdvig} символа";
+                label_status.ForeColor = Color.Green;
+                label_error.Text = string.Empty;
             }
-            alf_decode = endCode + nachaloCode;
-        }
-
-        private void button_gen_alfpf_Click(object sender, EventArgs e)
-        {
-            genAlpf();
-            string s = $"Используется сдвиг на {trackBar_sdvigAlpf.Value.ToString()} символа";
-
-            richTextBox_input.Clear();
-            richTextBox_output.Clear();
-            label_status.Text = s;
+            else
+            {
+                label_error.Text = "Введенное число привышает допустимый диапазон.";
+                label_error.ForeColor = Color.Red;
+            }
         }
 
         private void button_clear_Click(object sender, EventArgs e)
         {
+            // textBox_number_sdvig.Text = string.Empty;
             richTextBox_input.Clear();
             richTextBox_output.Clear();
+            label_error.Text = string.Empty;
+            label_count_symbols.Text = string.Empty;
+
+            label_status.ForeColor = Color.Black;
+            label_status.Text = $"Максимальное число для генерации: {alf_encrypt.Length - 1}";
         }
     }
 }
@@ -139,3 +155,13 @@ namespace ce
 // hello
 // khoor
 // при сдвиге на 3 символа
+
+/*
+ * Zhigalo Vladimir
+ * ckljdorCYodglplu
+ */
+
+/*
+ * Жигало Владимир Юрьевич
+ * ЙлёгосВЕогжлплуВбуязелъ
+ */

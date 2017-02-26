@@ -34,6 +34,7 @@
             this.richTextBox_resArr = new System.Windows.Forms.RichTextBox();
             this.richTextBox_resPassword = new System.Windows.Forms.RichTextBox();
             this.button_genPassword = new System.Windows.Forms.Button();
+            this.richTextBox_entropiya = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // button_check
@@ -58,7 +59,7 @@
             // 
             this.richTextBox_resArr.Location = new System.Drawing.Point(400, 12);
             this.richTextBox_resArr.Name = "richTextBox_resArr";
-            this.richTextBox_resArr.Size = new System.Drawing.Size(138, 346);
+            this.richTextBox_resArr.Size = new System.Drawing.Size(103, 346);
             this.richTextBox_resArr.TabIndex = 2;
             this.richTextBox_resArr.Text = "";
             // 
@@ -80,11 +81,20 @@
             this.button_genPassword.UseVisualStyleBackColor = true;
             this.button_genPassword.Click += new System.EventHandler(this.button_genPassword_Click);
             // 
+            // richTextBox_entropiya
+            // 
+            this.richTextBox_entropiya.Location = new System.Drawing.Point(509, 12);
+            this.richTextBox_entropiya.Name = "richTextBox_entropiya";
+            this.richTextBox_entropiya.Size = new System.Drawing.Size(47, 346);
+            this.richTextBox_entropiya.TabIndex = 5;
+            this.richTextBox_entropiya.Text = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(558, 576);
+            this.ClientSize = new System.Drawing.Size(579, 576);
+            this.Controls.Add(this.richTextBox_entropiya);
             this.Controls.Add(this.button_genPassword);
             this.Controls.Add(this.richTextBox_resPassword);
             this.Controls.Add(this.richTextBox_resArr);
@@ -105,6 +115,7 @@
         private System.Windows.Forms.RichTextBox richTextBox_resArr;
         private System.Windows.Forms.RichTextBox richTextBox_resPassword;
         private System.Windows.Forms.Button button_genPassword;
+        private System.Windows.Forms.RichTextBox richTextBox_entropiya;
     }
 }
 

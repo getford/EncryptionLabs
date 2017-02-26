@@ -17,9 +17,12 @@ namespace lab2
         private string alf = "abcdefghijklmnopqrstuvwxyz";
         private char[] arrAlf;          // алфавит
         private string[] arr;           // число повторов
+        private string[] arrEntropiya;  // вероятность встречи символа в тексте
         private string[,] tio;          // 2 в 1 
 
         private int[] arrTmp;
+
+        private int size;               // размер текста
 
         //  private int min;                // символ встречающийся реже других
 
@@ -38,7 +41,9 @@ namespace lab2
 
         private void checkInText()
         {
-            string textInput = richTextBox_input_text.Text; // текст
+            string textInput = richTextBox_input_text.Text;         // текст
+            size = richTextBox_input_text.Text.Length;              // размер текста в переменную
+
             int tmp = 0;
 
             //------------------------
@@ -61,6 +66,8 @@ namespace lab2
             mergeArrs();
             minInArrTmp();
             showArr();
+            entropiya();
+
         }
 
         private void mergeArrs() // объединим два массива в двумерный
@@ -182,6 +189,18 @@ namespace lab2
                             }
                             minIndexArr[0] = minIndex;
                     */
+
+        private void entropiya()
+        {
+            string tmp = string.Empty;
+            arrEntropiya = new string[arr.Length];
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                arrEntropiya[i] = (Convert.ToUInt32(size) / Convert.ToUInt32(arr[i])).ToString();
+                richTextBox_entropiya.Text = arrEntropiya[i] + Environment.NewLine;
+            }
+        }
 
         private void timeToChoose()             // выбираем редко встречающиеся буквы
         {
