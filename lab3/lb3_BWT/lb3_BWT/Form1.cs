@@ -29,14 +29,15 @@ namespace lb3_BWT
                     matrix[i] = matrix[i].Remove(matrix[i].Length - 1).Insert(0, last);
                 }
                 Array.Sort(matrix);
-                int ind = Array.IndexOf(matrix, richTextBox1.Text);
+                int index = Array.IndexOf(matrix, richTextBox1.Text);
+
                 richTextBox2.Text = string.Empty;
                 for (int i = 0; i < matrix.Length; i++)
                     richTextBox2.Text += matrix[i].Last();
+                richTextBox2.Text += '|' + index.ToString();
 
-                richTextBox2.Text += '|' + ind.ToString();
-                label1.Text = $"Индекс строки: {ind.ToString()}";
 
+                // Расшифровка
                 string text2S = richTextBox2.Text;
                 string[] par = text2S.Split('|');
                 if (par.Length != 2)
@@ -47,18 +48,19 @@ namespace lb3_BWT
 
                 for (int i = 0; i < matrix2.Length; i++)
                     matrix2[i] = text2[i].ToString();
-                Array.Sort(matrix2);
 
-                for (int j = 1; j < matrix2.Length; j++)
-                    for (int i = 0; i < matrix2.Length; i++)
-                        matrix2[i] = matrix2[i].Insert(0, text2[i].ToString());
                 Array.Sort(matrix2);
+                for (int j = 1; j < matrix2.Length; j++)
+                {
+                    for (int i = 0; i < matrix2.Length; i++)
+                    {
+                        matrix2[i] = matrix2[i].Insert(0, text2[i].ToString());
+                    }
+                    Array.Sort(matrix2);
+                }
                 richTextBox3.Text = matrix2[int.Parse(par[1])];
             }
-            else
-                MessageBox.Show("Текст не введен.");
         }
-
         private void buttonClear_Click(object sender, EventArgs e)
         {
             richTextBox1.Clear();
