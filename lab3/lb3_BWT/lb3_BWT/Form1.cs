@@ -19,7 +19,7 @@ namespace lb3_BWT
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            label1.Text = $"Индекс строки: ";
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
@@ -36,14 +36,13 @@ namespace lb3_BWT
                 }
                 Array.Sort(matrix);
                 int ind = Array.IndexOf(matrix, richTextBox1.Text);
-                richTextBox2.Text = "";
+                richTextBox2.Text = string.Empty;
                 for (int i = 0; i < matrix.Length; i++)
-                {
                     richTextBox2.Text += matrix[i].Last();
-                }
-                richTextBox2.Text += '|' + ind.ToString();
 
-                ///////////////////////////////
+                richTextBox2.Text += '|' + ind.ToString();
+                label1.Text = $"Индекс строки: {ind.ToString()}";
+
                 string text2S = richTextBox2.Text;
                 string[] par = text2S.Split('|');
                 if (par.Length != 2)
@@ -53,24 +52,17 @@ namespace lb3_BWT
                 string text2 = par[0];
 
                 for (int i = 0; i < matrix2.Length; i++)
-                {
                     matrix2[i] = text2[i].ToString();
-
-                }
                 Array.Sort(matrix2);
 
                 for (int j = 1; j < matrix2.Length; j++)
-                {
                     for (int i = 0; i < matrix2.Length; i++)
-                    {
                         matrix2[i] = matrix2[i].Insert(0, text2[i].ToString());
-
-                    }
-                    Array.Sort(matrix2);
-                }
+                Array.Sort(matrix2);
                 richTextBox3.Text = matrix2[int.Parse(par[1])];
             }
-
+            else
+                MessageBox.Show("Текст не введен.");
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
