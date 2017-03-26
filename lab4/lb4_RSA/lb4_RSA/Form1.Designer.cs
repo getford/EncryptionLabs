@@ -28,25 +28,69 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.button_genKey = new System.Windows.Forms.Button();
+            this.richTextBox_input = new System.Windows.Forms.RichTextBox();
+            this.richTextBox_output = new System.Windows.Forms.RichTextBox();
+            this.button_encrypt = new System.Windows.Forms.Button();
+            this.button_decrypt = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // button_genKey
             // 
-            this.button1.Location = new System.Drawing.Point(93, 202);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button_genKey.Location = new System.Drawing.Point(12, 216);
+            this.button_genKey.Name = "button_genKey";
+            this.button_genKey.Size = new System.Drawing.Size(150, 23);
+            this.button_genKey.TabIndex = 0;
+            this.button_genKey.Text = "generation key";
+            this.button_genKey.UseVisualStyleBackColor = true;
+            this.button_genKey.Click += new System.EventHandler(this.button_genKey_Click);
+            // 
+            // richTextBox_input
+            // 
+            this.richTextBox_input.Location = new System.Drawing.Point(12, 12);
+            this.richTextBox_input.Name = "richTextBox_input";
+            this.richTextBox_input.Size = new System.Drawing.Size(514, 96);
+            this.richTextBox_input.TabIndex = 1;
+            this.richTextBox_input.Text = "";
+            // 
+            // richTextBox_output
+            // 
+            this.richTextBox_output.Location = new System.Drawing.Point(12, 114);
+            this.richTextBox_output.Name = "richTextBox_output";
+            this.richTextBox_output.Size = new System.Drawing.Size(514, 96);
+            this.richTextBox_output.TabIndex = 2;
+            this.richTextBox_output.Text = "";
+            // 
+            // button_encrypt
+            // 
+            this.button_encrypt.Location = new System.Drawing.Point(168, 216);
+            this.button_encrypt.Name = "button_encrypt";
+            this.button_encrypt.Size = new System.Drawing.Size(176, 23);
+            this.button_encrypt.TabIndex = 3;
+            this.button_encrypt.Text = "encrypt";
+            this.button_encrypt.UseVisualStyleBackColor = true;
+            this.button_encrypt.Click += new System.EventHandler(this.button_encrypt_Click);
+            // 
+            // button_decrypt
+            // 
+            this.button_decrypt.Location = new System.Drawing.Point(350, 216);
+            this.button_decrypt.Name = "button_decrypt";
+            this.button_decrypt.Size = new System.Drawing.Size(176, 23);
+            this.button_decrypt.TabIndex = 4;
+            this.button_decrypt.Text = "decrypt";
+            this.button_decrypt.UseVisualStyleBackColor = true;
+            this.button_decrypt.Click += new System.EventHandler(this.button_decrypt_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(538, 255);
+            this.Controls.Add(this.button_decrypt);
+            this.Controls.Add(this.button_encrypt);
+            this.Controls.Add(this.richTextBox_output);
+            this.Controls.Add(this.richTextBox_input);
+            this.Controls.Add(this.button_genKey);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -56,7 +100,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button_genKey;
+        private System.Windows.Forms.RichTextBox richTextBox_input;
+        private System.Windows.Forms.RichTextBox richTextBox_output;
+        private System.Windows.Forms.Button button_encrypt;
+        private System.Windows.Forms.Button button_decrypt;
     }
 }
 
