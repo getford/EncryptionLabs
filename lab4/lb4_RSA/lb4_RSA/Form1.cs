@@ -1,28 +1,27 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Diagnostics;
 using System.Numerics;
 
 namespace lb4_RSA
 {
     public partial class Form1 : Form
     {
-        //   string alf = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ";
-
         char[] alf = new char[]
-        {
+            {
             'A','B','C','D','E','F','G','H','I','J','K',
             'L','M','N','O','P','Q','R','S','T','U','V',
             'W','X','Y','Z','a','b','c','d','e','f','g',
             'h','i','j','k','l','m','n','o','p','q','r',
             's','t','u','v','w','x','y','z',' ','0','1',
             '2','3','4','5','6','7','8','9'
-        };
+            };
 
         int N = 1000;       // До какого числа генерировать
         int p, q;           //
         int n;              // p * q
         int funcEilera;     // результат функции Эйлера для простого числа
-        int e;              // открытая экспонента
+        int exp;              // открытая экспонента
         int d;              // секретныая экспонента
 
         string inputText = string.Empty;        // Входной текст
@@ -33,6 +32,9 @@ namespace lb4_RSA
 
         Random random = new Random();
 
+        Stopwatch sw = new Stopwatch();     // подсчет времени выполнения
+        TimeSpan ts = new TimeSpan();       // для работы с временем выполнения
+
         public Form1()
         {
             InitializeComponent();
@@ -42,6 +44,7 @@ namespace lb4_RSA
         {
             // тут инфа о параметрах
             genKey();
+            label_time.Text = $"Тут будет время шифрования";
         }
 
         private void button_genKey_Click(object sender, EventArgs e)
@@ -52,11 +55,17 @@ namespace lb4_RSA
         private void button_encrypt_Click(object sender, EventArgs e)
         {
             encrypt();
+            encryptInString();
         }
 
         private void button_decrypt_Click(object sender, EventArgs e)
         {
             decrypt();
+        }
+
+        private void button_clear_Click(object sender, EventArgs e)
+        {
+            clearAll();
         }
 
         private void genKey()           // генерация ключей
@@ -65,15 +74,19 @@ namespace lb4_RSA
             genQ();
             n = p * q;
             funcEilera = (p - 1) * (q - 1);
-            e = random.Next(funcEilera);
+            exp = random.Next(funcEilera);
 
             //e = 3;
             //funcEilera = 9167368;
             genD();
 
-            MessageBox.Show($"p={p}, q={q}, n={n}, f(n)={funcEilera}, e={e}, d={d}\n" +
-                $"Open key: {e}, {n}\n" +
-                $"Close key: {d}, {n}");
+            label_info.Text = $"p={p}\nq={q}\nn={n}\nf(n)={funcEilera}\n" +
+                                $"e={exp}\nd={d}\n" +
+                                $"Open key: {exp}, {n}\n" +
+                                $"Close key: {d}, {n}";
+            //MessageBox.Show($"p={p}, q={q}, n={n}, f(n)={funcEilera}, e={e}, d={d}\n" +
+            //    $"Open key: {e}, {n}\n" +
+            //    $"Close key: {d}, {n}");
         }
 
         private void genP()
@@ -116,7 +129,7 @@ namespace lb4_RSA
 
         private void genD()
         {
-            int e1 = e;
+            int e1 = exp;
             int i = funcEilera, d1 = 0, v = 1;
             while (e1 > 0)
             {
@@ -135,22 +148,31 @@ namespace lb4_RSA
 
         private void encrypt()
         {
+            sw.Reset();         // сброс счетчика
+            outputText = string.Empty;
+            richTextBox_output.Text = string.Empty;
             inputText = richTextBox_input.Text.ToString();
             if (inputText != string.Empty)
             {
                 BigInteger tmp;
+                sw.Start();         // старт отсчета
                 for (int i = 0; i < inputText.Length; i++)
                 {
                     int index = Array.IndexOf(alf, inputText[i]);
 
                     tmp = new BigInteger(index);
-                    tmp = BigInteger.Pow(tmp, e);
+                    tmp = BigInteger.Pow(tmp, exp);
 
                     BigInteger _n = new BigInteger((int)n);
                     tmp = tmp % _n;
 
-                    richTextBox_output.Text = tmp.ToString();
+                    outputText += tmp.ToString();
+                    richTextBox_output.Text += tmp.ToString() + "\t";
                 }
+                sw.Stop();          // стоп счетчика
+                ts = sw.Elapsed;
+                label_time.Text = $"Время шифрования: {ts.ToString()}";
+                label_status_text.Text = $"Входной тест: {inputText.Length}\nВыходной текст: {outputText.Length}";
             }
             else
                 MessageBox.Show("Введите текст для шифрования");
@@ -165,6 +187,27 @@ namespace lb4_RSA
             }
             else
                 MessageBox.Show("Введите текст для расшифровки");
+        }
+
+        private void clearAll()
+        {
+            richTextBox_input.Clear();
+            richTextBox_output.Clear();
+            inputText = string.Empty;
+            outputText = string.Empty;
+            label_time.Text = $"Тут будет время шифрования";
+            label_status_text.Text = $"Входной/выходной текст";
+        }
+
+        private void encryptInString()
+        {
+            string res = string.Empty;
+            for (int i = 0; i < outputText.Length; i++)
+            {
+                char c = outputText[i];
+                res += alf[c];
+            }
+            label_time.Text = res.ToString();
         }
     }
 }

@@ -33,6 +33,10 @@
             this.richTextBox_output = new System.Windows.Forms.RichTextBox();
             this.button_encrypt = new System.Windows.Forms.Button();
             this.button_decrypt = new System.Windows.Forms.Button();
+            this.label_info = new System.Windows.Forms.Label();
+            this.button_clear = new System.Windows.Forms.Button();
+            this.label_time = new System.Windows.Forms.Label();
+            this.label_status_text = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button_genKey
@@ -81,11 +85,52 @@
             this.button_decrypt.UseVisualStyleBackColor = true;
             this.button_decrypt.Click += new System.EventHandler(this.button_decrypt_Click);
             // 
+            // label_info
+            // 
+            this.label_info.AutoSize = true;
+            this.label_info.Location = new System.Drawing.Point(12, 261);
+            this.label_info.Name = "label_info";
+            this.label_info.Size = new System.Drawing.Size(35, 13);
+            this.label_info.TabIndex = 5;
+            this.label_info.Text = "label1";
+            // 
+            // button_clear
+            // 
+            this.button_clear.Location = new System.Drawing.Point(350, 245);
+            this.button_clear.Name = "button_clear";
+            this.button_clear.Size = new System.Drawing.Size(176, 23);
+            this.button_clear.TabIndex = 6;
+            this.button_clear.Text = "clear";
+            this.button_clear.UseVisualStyleBackColor = true;
+            this.button_clear.Click += new System.EventHandler(this.button_clear_Click);
+            // 
+            // label_time
+            // 
+            this.label_time.AutoSize = true;
+            this.label_time.Location = new System.Drawing.Point(197, 354);
+            this.label_time.Name = "label_time";
+            this.label_time.Size = new System.Drawing.Size(54, 13);
+            this.label_time.TabIndex = 7;
+            this.label_time.Text = "label_time";
+            // 
+            // label_status_text
+            // 
+            this.label_status_text.AutoSize = true;
+            this.label_status_text.Location = new System.Drawing.Point(347, 280);
+            this.label_status_text.Name = "label_status_text";
+            this.label_status_text.Size = new System.Drawing.Size(86, 13);
+            this.label_status_text.TabIndex = 8;
+            this.label_status_text.Text = "label_status_text";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(538, 255);
+            this.ClientSize = new System.Drawing.Size(544, 376);
+            this.Controls.Add(this.label_status_text);
+            this.Controls.Add(this.label_time);
+            this.Controls.Add(this.button_clear);
+            this.Controls.Add(this.label_info);
             this.Controls.Add(this.button_decrypt);
             this.Controls.Add(this.button_encrypt);
             this.Controls.Add(this.richTextBox_output);
@@ -95,6 +140,7 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -105,6 +151,10 @@
         private System.Windows.Forms.RichTextBox richTextBox_output;
         private System.Windows.Forms.Button button_encrypt;
         private System.Windows.Forms.Button button_decrypt;
+        private System.Windows.Forms.Label label_info;
+        private System.Windows.Forms.Button button_clear;
+        private System.Windows.Forms.Label label_time;
+        private System.Windows.Forms.Label label_status_text;
     }
 }
 
