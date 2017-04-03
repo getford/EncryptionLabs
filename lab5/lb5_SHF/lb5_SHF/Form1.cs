@@ -16,5 +16,20 @@ namespace lb5_SHF
         {
             InitializeComponent();
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_shf_Click(object sender, EventArgs e)
+        {
+            shf();
+        }
+
+        private void shf()
+        {
+
+        }
     }
 }
