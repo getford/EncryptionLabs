@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button_genKey = new System.Windows.Forms.Button();
             this.richTextBox_input = new System.Windows.Forms.RichTextBox();
             this.richTextBox_output = new System.Windows.Forms.RichTextBox();
@@ -54,7 +55,7 @@
             // 
             this.richTextBox_input.Location = new System.Drawing.Point(12, 12);
             this.richTextBox_input.Name = "richTextBox_input";
-            this.richTextBox_input.Size = new System.Drawing.Size(514, 96);
+            this.richTextBox_input.Size = new System.Drawing.Size(714, 96);
             this.richTextBox_input.TabIndex = 1;
             this.richTextBox_input.Text = "";
             // 
@@ -62,7 +63,7 @@
             // 
             this.richTextBox_output.Location = new System.Drawing.Point(12, 114);
             this.richTextBox_output.Name = "richTextBox_output";
-            this.richTextBox_output.Size = new System.Drawing.Size(514, 96);
+            this.richTextBox_output.Size = new System.Drawing.Size(714, 96);
             this.richTextBox_output.TabIndex = 2;
             this.richTextBox_output.Text = "";
             // 
@@ -97,7 +98,7 @@
             // 
             // button_clear
             // 
-            this.button_clear.Location = new System.Drawing.Point(350, 347);
+            this.button_clear.Location = new System.Drawing.Point(532, 318);
             this.button_clear.Name = "button_clear";
             this.button_clear.Size = new System.Drawing.Size(176, 23);
             this.button_clear.TabIndex = 6;
@@ -108,7 +109,7 @@
             // label_time
             // 
             this.label_time.AutoSize = true;
-            this.label_time.Location = new System.Drawing.Point(197, 456);
+            this.label_time.Location = new System.Drawing.Point(347, 424);
             this.label_time.Name = "label_time";
             this.label_time.Size = new System.Drawing.Size(54, 13);
             this.label_time.TabIndex = 7;
@@ -117,7 +118,7 @@
             // label_status_text
             // 
             this.label_status_text.AutoSize = true;
-            this.label_status_text.Location = new System.Drawing.Point(347, 382);
+            this.label_status_text.Location = new System.Drawing.Point(347, 363);
             this.label_status_text.Name = "label_status_text";
             this.label_status_text.Size = new System.Drawing.Size(86, 13);
             this.label_status_text.TabIndex = 8;
@@ -127,7 +128,7 @@
             // 
             this.richTextBox_output_decode.Location = new System.Drawing.Point(12, 216);
             this.richTextBox_output_decode.Name = "richTextBox_output_decode";
-            this.richTextBox_output_decode.Size = new System.Drawing.Size(514, 96);
+            this.richTextBox_output_decode.Size = new System.Drawing.Size(714, 96);
             this.richTextBox_output_decode.TabIndex = 9;
             this.richTextBox_output_decode.Text = "";
             // 
@@ -135,7 +136,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(544, 479);
+            this.ClientSize = new System.Drawing.Size(738, 479);
             this.Controls.Add(this.richTextBox_output_decode);
             this.Controls.Add(this.label_status_text);
             this.Controls.Add(this.label_time);
@@ -146,8 +147,9 @@
             this.Controls.Add(this.richTextBox_output);
             this.Controls.Add(this.richTextBox_input);
             this.Controls.Add(this.button_genKey);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "RSA";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -17,7 +17,8 @@ namespace lb4_RSA
         //    '2','3','4','5','6','7','8','9'
         //    };
 
-        int[] _exp = new int[] { 3, 5, 17, 257, 65537 };
+
+        int[] _exp = new int[] { 11, 17, 257, 65537 };
 
         int N = 10000;       // До какого числа генерировать
         int p, q;           //
@@ -72,13 +73,21 @@ namespace lb4_RSA
 
         private void genKey()           // генерация ключей
         {
-            genP();
-            genQ();
+            p = genP();
+            q = genP();
+
+            //p = 3557;
+            //q = 2579;
+
             n = p * q;
             funcEilera = (p - 1) * (q - 1);
             // exp = random.Next(N);
             exp = _exp[random.Next(_exp.Length)];
+
+            //exp = 3;
+
             genD();
+
 
 
             label_info.Text = $"p={p}\nq={q}\nn={n}\nf(n)={funcEilera}\n" +
@@ -90,43 +99,45 @@ namespace lb4_RSA
             //    $"Close key: {d}, {n}");
         }
 
-        private void genP()
+        private int genP()
         {
+            int p1;
+
             int flag = 0;
-            p = random.Next(N);
+            p1 = random.Next(N);
 
-            for (int i = 1; i <= p; i++)
+            for (int i = 1; i <= p1; i++)
             {
-                if (p % i == 0)
+                if (p1 % i == 0)
                     flag++;
-
                 if (flag >= 3)
                 {
-                    p = random.Next(N);
+                    p1 = random.Next(N);
                     i = 0;
                     flag = 0;
                 }
             }
+            return p1;
         }
 
-        private void genQ()
-        {
-            int flag = 0;
-            q = random.Next(N);
+        //private void genQ()
+        //{
+        //    int flag = 0;
+        //    q = random.Next(N);
 
-            for (int i = 1; i < q + 1; i++)
-            {
-                if (q % i == 0)
-                    flag++;
+        //    for (int i = 1; i < q + 1; i++)
+        //    {
+        //        if (q % i == 0)
+        //            flag++;
 
-                if (flag >= 3)
-                {
-                    q = random.Next(N);
-                    i = 0;
-                    flag = 0;
-                }
-            }
-        }
+        //        if (flag >= 3)
+        //        {
+        //            q = random.Next(N);
+        //            i = 0;
+        //            flag = 0;
+        //        }
+        //    }
+        //}
 
         private void genD()
         {
@@ -149,7 +160,6 @@ namespace lb4_RSA
             if (d1 < 0)
                 d1 = (d1 + funcEilera) % funcEilera;
             d = d1;
-
         }
 
         private void encrypt()
@@ -160,16 +170,17 @@ namespace lb4_RSA
             inputText = richTextBox_input.Text.ToString();
             if (inputText != string.Empty)
             {
+                BigInteger _n = new BigInteger((int)n);
                 BigInteger tmp;
                 sw.Start();         // старт отсчета
                 for (int i = 0; i < inputText.Length; i++)
                 {
                     int index = (int)inputText[i];
-                    tmp = new BigInteger(index);
-                    tmp = BigInteger.Pow(tmp, exp);
 
-                    BigInteger _n = new BigInteger((int)n);
-                    tmp = tmp % _n;
+                    tmp = new BigInteger(index);
+                    tmp = BigInteger.ModPow(tmp, exp, _n);
+
+                    //tmp = tmp % _n;
 
                     outputText += tmp.ToString() + "\t";
                     richTextBox_output.Text = outputText;
@@ -183,13 +194,19 @@ namespace lb4_RSA
                 MessageBox.Show("Введите текст для шифрования");
         }
 
-        public int dcpt(int symbol, BigInteger keyD, BigInteger keyN)
+        public int dcpt(int symbol, BigInteger D, BigInteger N)
         {
-            return (int)(BigInteger.ModPow(symbol, keyD, keyN));
+            return (int)(BigInteger.ModPow(symbol, D, N));
+        }
+
+        public int ecpt(int symbol, BigInteger E, BigInteger N)
+        {
+            return (int)(BigInteger.ModPow(symbol, E, N));
         }
 
         private void decrypt()
         {
+            outputText = richTextBox_output.Text;
             string arrTmp = outputText;
             string res = string.Empty;
             if (arrTmp != string.Empty)
