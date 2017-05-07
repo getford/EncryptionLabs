@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace lb5_SHF
+namespace lab05
 {
     static class Program
     {

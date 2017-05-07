@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace lb5_SHF.Properties
+namespace lab06.Properties
 {
 
 
